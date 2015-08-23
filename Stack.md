@@ -76,7 +76,6 @@ private void resize(int max){
 >下压栈（LIFO）（能够动态调整数组大小的实现）
 ```java
 import java.util.Iterator;
-
 public class ResizingArrayStack<Item> implements Iterable<Item>{
 	private Item[] a=(Item[])new Object[1];		//栈元素
 	private int N=0;							//元素个数
@@ -134,4 +133,5 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
 	}
 
 }
+
 ```
