@@ -1,7 +1,7 @@
 下压栈是一种基于后进先出策略的集合类型。
 在应用程序中使用栈迭代器的一个典型原因是在用集合保存元素的同时颠倒它们的相对顺序。
 
->Stack的底层为一个用于保存栈中的元素的数组a[],和一个用于保存栈中元素数量的整数N，栈的顶部位于a[N-1] （如果栈为非空）。
+>Stack的底层为一个用于保存栈中的元素的数组a[]，和一个用于保存栈中元素数量的整数N，栈的顶部位于a[N-1] （如果栈为非空）。
 >要删除一个元素，将N减一并返回a[N]。要添加一个元素，我们将a[N]设为新元素并将N加1。
 
 ```java
@@ -21,11 +21,21 @@ public class FixedCapacityStackOfStrings<Item>{
 	}
 
 	public void push(Item item){
+		if(N==a.length){
+			resize(2*a.length);
+		}
 		a[N++]=item;
 	}
 
 	public Item pop(){
-		return a[--N];
+		//从栈顶删除元素
+		Item item=a[--N];
+		//避免对象游离
+		a[N]=null;
+		if(N>0&&N==a.length/4){
+			resize(a.length/2);
+		}
+		return item;
 	}
 
 	public int size(){
@@ -48,8 +58,17 @@ public class FixedCapacityStackOfStrings<Item>{
 }
 ```
 
+>选择用数组表示栈内容意味着必须预先估计栈的最大容量。在Java中数组一旦创建，其大小无法改变。我们需要能够调整数组a[]大小，使得它既可以保存所有的元素，又不至于浪费过多的空间。
 
-
+>调整栈的大小
 ```java
-
+private void resize(int max){
+	//将大小为N<max的栈移动到一个新的大小为max的数组中
+	Item[] temp=(Item[])new Object[max];
+	for (int i=0;i<N;i++){
+		temp[i]=a[i];
+	}
+	a=temp;
+}
 ```
+
