@@ -146,5 +146,4 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
 	}
 
 }
-
 ```
