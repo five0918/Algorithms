@@ -6,4 +6,4 @@ private class Node{
     Node next;
 }
 ```
-![](https://github.com/five0918/Algorithms-pictures/blob/master/linked_list.jpg)
+![](https://github.com/five0918/Algorithms/blob/master/pictures/linked_list.jpg)
