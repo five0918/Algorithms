@@ -56,18 +56,18 @@ import java.util.Scanner;
 public class Stack<Item> implements Iterable<Item>{
 	private Node first;	//栈顶（最近添加的元素）
 	private int N;		//元素个数
-	private class Node{
+	private class Node{		//定义结点的嵌套类
 		Item item;
 		Node next;
 	}
 
 	public boolean isEmpty(){ 
-		return first==null; 
+		return first==null; //或N==0
 	}
 	public int size(){ 
 		return N; 
 	}
-
+	//向栈顶添加元素
 	public void push(Item item){
 		Node oldfirst=first;
 		first=new Node();
@@ -75,7 +75,7 @@ public class Stack<Item> implements Iterable<Item>{
 		first.next=oldfirst;
 		N++;
 	}
-
+	//从栈顶删除元素
 	public Item pop(){
 		Item item=first.item;
 		first=first.next;
@@ -112,6 +112,132 @@ public class Stack<Item> implements Iterable<Item>{
 			}
 		}
 		System.out.println("("+stack.size()+" left on stack)");
+	}
+}
+```
+
+##7. 队列实现
+```java
+public class Queue<Item> implements Iterable<Item>{
+	private Node first;	//指向最早添加的结点的链接
+	private Node last;	//指向最近添加的结点的链接
+	private int N;	    //队列中的元素数量
+	//定义结点的嵌套类
+	private class Node{
+		Item item;
+		Node next;
+	}
+
+	public boolean isEmpty(){
+		return first==null;
+	}	
+
+	public int size(){
+		return N;
+	}
+	//向表尾添加元素
+	public void enqueue(Item item){
+		Node oldlast=last;
+		last=new Node();
+		last.item=item;
+		last.next=null;
+		//如果链表为空时，first和last都指向新结点
+		if (isEmpty) {
+			first=last;
+		}else {
+			oldlast.next=last;
+		}
+		N++;
+	}
+	//从表头删除元素
+	public Item dequeue(){
+		Item item=first.item;
+		first=first.next();
+		//如果链表为空时需要更新last的值
+		if (isEmpty) {
+			last=null;
+		}
+		N--;
+		return item;
+	}
+
+	public Iterator<Item> iterator(){
+		return new ListIterator();
+	}
+
+	public ListIterator implements Iterator<Item>{
+		private Node current=first;
+		public void hasNext(){
+			return current!=null;
+		}
+		public void remove(){}
+		public Item next(){
+			Item item=current.item;
+			current=current.next;
+			return item;
+		}
+	}
+
+	public static void main(String[] args) {
+		Queue<String> stack=new Queue<String>();
+		Scanner in=new Scanner(System.in);
+		while(in.hasNext()){
+			String item=in.next();
+			if (!item.equals("-")) {
+				stack.push(item);
+			}else if (!stack.isEmpty()) {
+				System.out.print(stack.pop()+" ");
+			}
+		}
+		System.out.println("("+stack.size()+" left on queue)");
+	}
+}
+```
+>注意：本题注意链表为空时的特殊情况，元素入列，链表为空时需将first和last都指向新结点；需要将元素出列，删除表头结点，当链表为空时需要更新last的值。（极端情况需要考虑在内）
+##8. 背包实现
+```java
+import java.util.Iterator;
+import java.util.Scanner;
+
+public class Bag<Item> implements Iterable<Item>{
+	private Node first;	//链表的首结点
+	private int N;
+	private class Node{
+		Item item;
+		Node next;
+	}
+
+	public boolean isEmpty(){
+		return first==null;
+	}
+
+	public int size(){
+		return N;
+	}
+
+	public void add(Item item){
+		//和Stack的push()方法完全相同
+		Node oldfirst=first;
+		first=new Node();
+		first.item=item;
+		first.next=oldfirst;
+	}
+
+	public Iterator<Item> iterator(){
+		return new ListIterator();
+	}
+
+	private class ListIterator implements Iterator<Item>{
+		private Node current=first;
+		public boolean hasNext(){
+			return current!=null;
+		}
+		public void remove(){}
+		public Item next(){
+			Item item=current.item;
+			current=current.next;
+			return item;
+		}
 	}
 }
 ```
