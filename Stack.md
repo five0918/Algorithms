@@ -1,3 +1,5 @@
+#2 栈
+##1. 下压栈
 下压栈是一种基于后进先出策略的集合类型。
 在应用程序中使用栈迭代器的一个典型原因是在用集合保存元素的同时颠倒它们的相对顺序。
 
@@ -72,8 +74,7 @@ private void resize(int max){
 }
 ```
 
-
-下压栈（LIFO）（能够动态调整数组大小的实现）
+##2. 下压栈（LIFO）（能够动态调整数组大小的实现）
 ```java
 import java.util.Iterator;
 import java.util.Scanner;
