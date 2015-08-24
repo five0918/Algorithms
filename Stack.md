@@ -76,9 +76,11 @@ private void resize(int max){
 下压栈（LIFO）（能够动态调整数组大小的实现）
 ```java
 import java.util.Iterator;
+import java.util.Scanner;
+
 public class ResizingArrayStack<Item> implements Iterable<Item>{
-	private Item[] a=(Item[])new Object[1];		//栈元素
-	private int N=0;							//元素个数
+	private Item[] a=(Item[])new Object[1];
+	private int N=0;
 
 	public boolean isEmpty(){
 		return N==0;
@@ -89,7 +91,6 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
 	}
 
 	private void resize(int max){
-		//将栈移动到一个大小为max的新数组
 		Item[] temp=(Item[])new Object[max];
 		for (int i=0;i<N;i++ ) {
 			temp[i]=a[i];
@@ -98,17 +99,15 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
 	}
 
 	public void push(Item item){
-		//将元素添加到栈顶
 		if (N==a.length) {
 			resize(2*a.length);
 		}
 		a[N++]=item;
 	}
 
-	public Item pop(Item item){
-		//从栈顶删除元素
+	public Item pop(){
 		Item item=a[--N];
-		a[N]=null;		//避免对象游离
+		a[N]=null;
 		if (N>0&&N==a.length/4) {
 			resize(a.length/2);
 		}
@@ -120,16 +119,30 @@ public class ResizingArrayStack<Item> implements Iterable<Item>{
 	}
 
 	private class ReverseArrayIterator implements Iterator<Item>{
-		//支持后进先出迭代
+		
 		private int i=N;
 		public boolean hasNext(){
 			return i>0;
 		}
 
 		public Item next(){
-			reutn a[--i];
+			return a[--i];
 		}
 		public void remove(){}
+	}
+
+	public static void main(String[] args) {
+		ResizingArrayStack<String> stack=new ResizingArrayStack<String>();
+		Scanner in=new Scanner(System.in);
+		while(in.hasNext()){
+			String item=in.next();
+			if (!item.equals("-")) {
+				stack.push(item);
+			}else if (!stack.isEmpty()) {
+				System.out.print(stack.pop()+" ");
+			}
+		}
+		System.out.println("("+stack.size()+" left on stack)");
 	}
 
 }
