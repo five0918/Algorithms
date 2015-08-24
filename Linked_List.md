@@ -6,3 +6,4 @@ private class Node{
     Node next;
 }
 ```
+![linked_list](http://pan.baidu.com/s/14Wnhk)
