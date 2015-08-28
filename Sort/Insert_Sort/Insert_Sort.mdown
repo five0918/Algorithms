@@ -53,16 +53,30 @@ public class Insert_Sort{
 ```java
 public class Insert_Sort2{
 
+	// public static void insert_sort(int[] array){
+	// 	int N=array.length;
+	// 	for (int i=1;i<N;i++) {
+	// 		int temp=array[i];
+	// 		for (int j=i-1;j>=0;j--) {
+	// 			if (temp<array[j]) {
+	// 				array[j+1]=array[j];
+	// 				array[j]=temp;
+	// 			}
+	// 		}
+
+	// 	}
+	// }
+
 	public static void insert_sort(int[] array){
 		int N=array.length;
 		for (int i=1;i<N;i++) {
-			int temp=array[i];			//保存将要进行比较的数据从1~N-1
-			for (int j=i-1;j>=0;j--) {
-				if (temp<array[j]) {
-					array[j+1]=array[j];	//将较大的元素右移
-					array[j]=temp;
-				}
+			int temp=array[i];
+			int j=i-1;
+			while(j>=0&&temp<array[j]){	
+				array[j+1]=array[j];	//将较大的元素右移而不总是交换
+				j--;
 			}
+			array[j+1]=temp;
 
 		}
 	}
