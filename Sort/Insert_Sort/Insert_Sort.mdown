@@ -49,3 +49,35 @@ public class Insert_Sort{
 要大幅提高插入排序的速度并不难，只需要在内循环中将较大的元素都向右移动而不总是交换两个元素（这样访问数组的次数就能减半）。
 
 插入排序对于部分有序的数组十分高效，也很适合小规模的数组。
+
+```java
+public class Insert_Sort2{
+
+	public static void insert_sort(int[] array){
+		int N=array.length;
+		for (int i=1;i<N;i++) {
+			int temp=array[i];			//保存将要进行比较的数据从1~N-1
+			for (int j=i-1;j>=0;j--) {
+				if (temp<array[j]) {
+					array[j+1]=array[j];	//将较大的元素右移
+					array[j]=temp;
+				}
+			}
+
+		}
+	}
+
+	public static void main(String[] args) {
+		int[] arr={3,44,38,5,47,15,36,26,27,2,46,4,19,50,48};
+		System.out.println("排序前:");
+		for (int n :arr ) {
+			System.out.print(n+" ");
+		}
+		insert_sort(arr);
+		System.out.println("\n排序后:");
+		for (int n :arr ) {
+			System.out.print(n+" ");
+		}
+	}
+}
+```
