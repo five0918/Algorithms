@@ -19,8 +19,8 @@ public class Insert_Sort2{
 		for (int i=1;i<N;i++) {
 			int temp=array[i];
 			int j=i-1;
-			while(j>=0&&temp<array[j]){
-				array[j+1]=array[j];
+			while(j>=0&&temp<array[j]){	
+				array[j+1]=array[j];	//将较大的元素右移而不总是交换
 				j--;
 			}
 			array[j+1]=temp;
